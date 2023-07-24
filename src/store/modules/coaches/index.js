@@ -9,7 +9,7 @@ export default {
       coaches: [
         {
           id: 'c1',
-          firstName: 'Maximilian',
+          firstName: 'Maximilian Habib',
           lastName: 'Schwarzmüller',
           areas: ['frontend', 'backend', 'career'],
           description:
