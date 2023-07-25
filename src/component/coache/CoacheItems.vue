@@ -11,7 +11,9 @@
       ></base-badge>
     </div>
     <div class="actions">
-      <base-button link :to="contactRouterLink">contact</base-button>
+      <base-button class="outline" link :to="contactRouterLink"
+        >contact</base-button
+      >
       <base-button link :to="detailRouterLink">Details</base-button>
     </div>
   </li>
@@ -28,7 +30,7 @@ export default {
     },
 
     contactRouterLink() {
-      return this.$route.path + '/' + this.id + 'contact'; // coaches/C1/contact
+      return this.$route.path + '/' + this.id + '/contact'; // coaches/C1/contact
     },
     detailRouterLink() {
       return this.$route.path + '/' + this.id; // coaches/c1
