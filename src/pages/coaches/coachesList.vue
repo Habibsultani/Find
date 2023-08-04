@@ -6,7 +6,9 @@
     <base-card>
       <div class="controls">
         <base-button class="outline">Refres</base-button>
-        <base-button link to="/register">Register as a coache</base-button>
+        <base-button v-if="!isCoache" link to="/register"
+          >Register as a coache</base-button
+        >
       </div>
       ALL COACHES
       <ul>
@@ -46,6 +48,9 @@ export default {
   },
 
   computed: {
+    isCoache() {
+      return this.$store.getters['coaches/isCoache'];
+    },
     coachesDatas() {
       const coaches = this.$store.getters['coaches/coaches'];
       return coaches.filter((coach) => {

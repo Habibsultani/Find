@@ -1,6 +1,6 @@
-import mutation from './mutation.js';
+import mutations from './mutations.js';
 import getters from './getters.js';
-import action from './action.js';
+import actions from './actions.js';
 
 export default {
   namespaced: true,
@@ -28,7 +28,7 @@ export default {
       ],
     };
   },
-  mutation,
+  mutations,
+  actions,
   getters,
-  action,
 };
