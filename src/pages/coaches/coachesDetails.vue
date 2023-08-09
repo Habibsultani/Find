@@ -9,7 +9,7 @@
     <base-card>
       <header>
         <p>Interested? attach right now!</p>
-        <base-button link to="contactLink">Contact</base-button>
+        <base-button link :to="contactLink">Contact</base-button>
       </header>
       <router-view></router-view>
     </base-card>
@@ -47,7 +47,7 @@ export default {
       return this.selectedCoache.hourlyRate;
     },
     contactLink() {
-      return this.$route.path + '/' + this.id + '/contact';
+      return this.$route.path + '/contact';
     },
     description() {
       return this.selectedCoache.description;

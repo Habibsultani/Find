@@ -133,12 +133,14 @@ export default {
     },
     clearValidity(input) {
       this[input].isValid = true;
+      this.formisValid = true;
     },
     submitData() {
       this.formValidation();
       if (!this.formisValid) {
         return;
-      } else {
+      }
+      if (this.formisValid) {
         const dataForm = {
           name: this.firstname.val,
           last: this.lastname.val,
