@@ -2,13 +2,13 @@
   <form @submit.prevent="saveData">
     <div class="form-controle">
       <label for="emeil">Your email:</label>
-      <input type="email" id="email" />
+      <input type="email" id="email" v-model.trim="email" />
     </div>
     <div class="form-controle">
       <label for="message">Your message:</label>
-      <textarea id="message" rows="5"></textarea>
+      <textarea id="message" rows="5" v-model.trim="message"></textarea>
     </div>
-    <p v-if="!formisValid" class="error">
+    <p v-if="!formisValid" class="errors">
       Please write your email and a non-message input.
     </p>
     <div class="action">
@@ -28,21 +28,25 @@ export default {
   },
   methods: {
     saveData() {
-      this.formisValid = true;
       if (
         this.email === '' ||
         !this.email.includes('@') ||
         this.message === ''
       ) {
         this.formisValid = false;
-        return;
+      } else {
+        this.formisValid = true;
       }
+      const dataNew = {
+        email: this.email,
+        message: this.message,
+        userid: this.$route.params.id,
+      };
       if (this.formisValid) {
-        this.$store.dispatch('addNewData', {
-          email: this.email,
-          message: this.message,
-          userid: this.$route.params.id,
-        });
+        this.$store.dispatch('requests/addNewData', dataNew);
+        console.log(dataNew);
+
+        this.$router.replace('/coaches');
       }
     },
   },
