@@ -8,12 +8,15 @@
         <base-button class="outline" @click="loadTheNewCoache"
           >Refres</base-button
         >
-        <base-button v-if="!isCoache" link to="/register"
+        <base-button v-if="!isCoache && !isLoading" link to="/register"
           >Register as a coache</base-button
         >
       </div>
       ALL COACHES
-      <ul>
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="hasCoaches">
         <coache-items
           v-for="coache in coachesDatas"
           :key="coache.id"
@@ -25,6 +28,7 @@
         >
         </coache-items>
       </ul>
+      <p v-else>No coache found.</p>
     </base-card>
   </section>
 </template>
@@ -41,6 +45,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       activeFilter: {
         frontend: true,
         backend: true,
@@ -70,7 +75,7 @@ export default {
     },
 
     hasCoaches() {
-      return this.$store.getters['coaches/hasCoaches'];
+      return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
     },
   },
 
@@ -82,8 +87,10 @@ export default {
     setFilter(updateFiltered) {
       this.activeFilter = updateFiltered;
     },
-    loadTheNewCoache() {
-      return this.$store.dispatch('coaches/loadTheCoache');
+    async loadTheNewCoache() {
+      this.isLoading = true;
+      await this.$store.dispatch('coaches/loadTheCoache');
+      this.isLoading = false;
     },
   },
 };
