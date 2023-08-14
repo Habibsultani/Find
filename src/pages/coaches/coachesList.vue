@@ -5,7 +5,9 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button class="outline">Refres</base-button>
+        <base-button class="outline" @click="loadTheNewCoache"
+          >Refres</base-button
+        >
         <base-button v-if="!isCoache" link to="/register"
           >Register as a coache</base-button
         >
@@ -72,9 +74,16 @@ export default {
     },
   },
 
+  created() {
+    this.loadTheNewCoache();
+  },
+
   methods: {
     setFilter(updateFiltered) {
       this.activeFilter = updateFiltered;
+    },
+    loadTheNewCoache() {
+      return this.$store.dispatch('coaches/loadTheCoache');
     },
   },
 };

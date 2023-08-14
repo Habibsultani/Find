@@ -30,4 +30,32 @@ export default {
       id: userId,
     });
   },
+
+  async loadTheCoache(context) {
+    const respons = await fetch(
+      `https://http-work-5df06-default-rtdb.europe-west1.firebasedatabase.app/coaches.json`
+    );
+
+    const responseData = await respons.json();
+
+    if (!respons.ok) {
+      /// error
+    }
+
+    const coaches = [];
+
+    for (const key in responseData) {
+      const coache = {
+        id: key,
+        firstName: responseData[key].firstName,
+        lastName: responseData[key].lastName,
+        areas: responseData[key].areas,
+        description: responseData[key].description,
+        hourlyRate: responseData[key].hourlyRate,
+      };
+
+      coaches.push(coache);
+    }
+    context.commit('setTheCoache', coaches);
+  },
 };
