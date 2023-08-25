@@ -1,20 +1,22 @@
 <template>
-  <form @submit.prevent="saveData">
-    <div class="form-controle">
-      <label for="emeil">Your email:</label>
-      <input type="email" id="email" v-model.trim="email" />
-    </div>
-    <div class="form-controle">
-      <label for="message">Your message:</label>
-      <textarea id="message" rows="5" v-model.trim="message"></textarea>
-    </div>
-    <p v-if="!formisValid" class="errors">
-      Please write your email and a non-message input.
-    </p>
-    <div class="action">
-      <base-button>Send the message</base-button>
-    </div>
-  </form>
+  <div>
+    <form @submit.prevent="saveData">
+      <div class="form-controle">
+        <label for="emeil">Your email:</label>
+        <input type="email" id="email" v-model.trim="email" />
+      </div>
+      <div class="form-controle">
+        <label for="message">Your message:</label>
+        <textarea id="message" rows="5" v-model.trim="message"></textarea>
+      </div>
+      <p v-if="!formisValid" class="errors">
+        Please write your email and a non-message input.
+      </p>
+      <div class="action">
+        <base-button>Send the message</base-button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>

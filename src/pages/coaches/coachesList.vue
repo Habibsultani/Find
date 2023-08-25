@@ -1,39 +1,41 @@
 <template>
-  <base-dialog :show="!!error" title="An error ocurred" @close="closebtn">
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
-    <coache-filter @change-filter="setFilter"></coache-filter>
-  </section>
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button class="outline" @click="loadTheNewCoache"
-          >Refres</base-button
-        >
-        <base-button v-if="!isCoache && !isLoading" link to="/register"
-          >Register as a coache</base-button
-        >
-      </div>
-      ALL COACHES
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="hasCoaches">
-        <coache-items
-          v-for="coache in coachesDatas"
-          :key="coache.id"
-          :id="coache.id"
-          :first-name="coache.firstName"
-          :last-name="coache.lastName"
-          :rate="coache.hourlyRate"
-          :areas="coache.areas"
-        >
-        </coache-items>
-      </ul>
-      <p v-else>No coache found.</p>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog :show="!!error" title="An error ocurred" @close="closebtn">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <coache-filter @change-filter="setFilter"></coache-filter>
+    </section>
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button class="outline" @click="loadTheNewCoache"
+            >Refres</base-button
+          >
+          <base-button v-if="!isCoache && !isLoading" link to="/register"
+            >Register as a coache</base-button
+          >
+        </div>
+        ALL COACHES
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasCoaches">
+          <coache-items
+            v-for="coache in coachesDatas"
+            :key="coache.id"
+            :id="coache.id"
+            :first-name="coache.firstName"
+            :last-name="coache.lastName"
+            :rate="coache.hourlyRate"
+            :areas="coache.areas"
+          >
+          </coache-items>
+        </ul>
+        <p v-else>No coache found.</p>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>
