@@ -1,11 +1,6 @@
 <template>
   <div>
-    <base-dialog
-      :show="!!error"
-      fixed
-      title="An error occcured!"
-      @close="btnError"
-    >
+    <base-dialog :show="!!error" title="An error occcured!" @close="btnError">
       <p>{{ error }}</p>
     </base-dialog>
     <base-dialog :show="isLoading" title="Authenticating..." fixed>
@@ -21,6 +16,7 @@
           <label for="password">Password</label>
           <input type="password" id="password" v-model.trim="password" />
         </div>
+        <p v-if="isLoading">Loging in....</p>
         <p v-if="!isValid">
           Please enter a valid email and a password which at least must 6
           chracter
@@ -77,21 +73,26 @@ export default {
         return;
       }
 
+      this.isLoading = true;
+      const sendData = {
+        email: this.email,
+        password: this.password,
+      };
+
       try {
-        this.isLoading = true;
         if (this.mode === 'login') {
-          //// log in request
+          await this.$store.dispatch('logIn', sendData);
         } else {
-          this.$store.dispatch('signUp', {
-            email: this.email,
-            password: this.password,
-          });
-          this.isLoading = false;
+          await this.$store.dispatch('signUp', sendData);
         }
-      } catch (error) {
-        this.error =
-          error.message || 'faild to send the data, please try later!';
+        const newRuter = '/' + (this.$route.query.redirect || 'coaches');
+        this.$router.replace(newRuter);
+      } catch (err) {
+        this.error = err.message || 'faild to send the data, please try later!';
       }
+      this.isLoading = false;
+      this.email = '';
+      this.password = '';
     },
 
     switchThemode() {
@@ -101,9 +102,9 @@ export default {
         return (this.mode = 'login');
       }
     },
-  },
-  btnError() {
-    this.error = null;
+    btnError() {
+      this.error = null;
+    },
   },
 };
 </script>

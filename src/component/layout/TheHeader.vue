@@ -5,10 +5,30 @@
     </nav>
     <ul>
       <li><router-link to="/coaches">All Coaches</router-link></li>
-      <li><router-link to="request">Requests</router-link></li>
+      <li><router-link to="request" v-if="isAuth">Requests</router-link></li>
+      <li><router-link to="/auth" v-if="!isAuth">Log in</router-link></li>
+      <li><base-button v-if="isAuth" @click="logOut">Log out</base-button></li>
     </ul>
   </header>
 </template>
+
+<script>
+import BaseButton from '../ui/BaseButton.vue';
+export default {
+  components: { BaseButton },
+  computed: {
+    isAuth() {
+      return this.$store.getters.token;
+    },
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('logOut');
+      this.$router.replace('/coaches');
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {

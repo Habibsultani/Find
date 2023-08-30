@@ -12,7 +12,13 @@
           <base-button class="outline" @click="loadTheNewCoache"
             >Refres</base-button
           >
-          <base-button v-if="!isCoache && !isLoading" link to="/register"
+          <base-button link to="/auth?redirect=register" v-if="!isAuth"
+            >Log in to register coach</base-button
+          >
+          <base-button
+            v-if="isAuth && !isCoache && !isLoading"
+            link
+            to="/register"
             >Register as a coache</base-button
           >
         </div>
@@ -61,6 +67,9 @@ export default {
   },
 
   computed: {
+    isAuth() {
+      return this.$store.getters.token;
+    },
     isCoache() {
       return this.$store.getters['coaches/isCoache'];
     },

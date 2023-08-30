@@ -27,9 +27,10 @@ export default {
 
   async getResponseData(context) {
     const userId = context.rootGetters.userId;
-    console.log(userId);
+    const token = context.rootGetters.token;
     const response = await fetch(
-      `https://http-work-5df06-default-rtdb.europe-west1.firebasedatabase.app/requests/${userId}.json`
+      `https://http-work-5df06-default-rtdb.europe-west1.firebasedatabase.app/requests/${userId}.json?auth=` +
+        token
     );
 
     const responseData = await response.json();
