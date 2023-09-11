@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import { defineAsyncComponent } from 'vue';
 
 import router from './router.js';
 import App from './App.vue';
@@ -7,7 +8,11 @@ import BaseCard from './component/ui/BaseCard.vue';
 import BaseButton from './component/ui/BaseButton.vue';
 import BaseBadge from './component/ui/BaseBadge.vue';
 import BaseSpinner from './component/ui/BaseSpinner.vue';
-import BaseDialog from './component/ui/BaseDialog.vue';
+// import BaseDialog from './component/ui/BaseDialog.vue';
+
+const BaseDialog = defineAsyncComponent(() =>
+  import('./component/ui/BaseDialog.vue')
+);
 
 const app = createApp(App);
 
